@@ -1,6 +1,26 @@
 import Post from './models/post';
+import Task from './models/task';
 
 export default function () {
+  Task.count().exec((err, count) => {
+    if (count > 0) {
+      return;
+    }
+
+    const content1 = 'Check this task';
+    const content2 = 'Delete this task';
+
+    const task1 = new Task({ cuid: 'cikqgkv4q01ck7453ualdn4hd', checked: false, content: content1 });
+    const task2 = new Task({ cuid: 'cikqgkv4q01ck7453ualdn4hf', checked: true, content: content2 });
+
+    Task.create([task1, task2], (error) => {
+      if (!error) {
+        // Console.log('Dummy tasks created...');
+      }
+    });
+  });
+
+
   Post.count().exec((err, count) => {
     if (count > 0) {
       return;
