@@ -34,7 +34,7 @@ export class App extends Component {
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
-            title="TODO App"
+            title="TODO App V2"
             titleTemplate="%s - Blog App"
             meta={[
               { charset: 'utf-8' },
