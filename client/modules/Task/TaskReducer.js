@@ -1,23 +1,23 @@
-import { ADD_POST, ADD_POSTS, DELETE_POST } from './PostActions';
+import { ADD_TASK, ADD_TASKS, DELETE_TASK } from './TaskActions';
 
 // Initial State
 const initialState = { data: [] };
 
-const PostReducer = (state = initialState, action) => {
+const TaskReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST :
+    case ADD_TASK :
       return {
-        data: [action.post, ...state.data],
+        data: [action.task, ...state.data],
       };
 
-    case ADD_POSTS :
+    case ADD_TASKS :
       return {
-        data: action.posts,
+        data: action.tasks,
       };
 
-    case DELETE_POST :
+    case DELETE_TASK :
       return {
-        data: state.data.filter(post => post.cuid !== action.cuid),
+        data: state.data.filter(task => task.cuid !== action.cuid),
       };
 
     default:
@@ -27,11 +27,11 @@ const PostReducer = (state = initialState, action) => {
 
 /* Selectors */
 
-// Get all posts
-export const getPosts = state => state.posts.data;
+// Get all tasks
+export const getTasks = state => state.tasks.data;
 
-// Get post by cuid
-export const getPost = (state, cuid) => state.posts.data.filter(post => post.cuid === cuid)[0];
+// Get task by cuid
+export const getTask = (state, cuid) => state.tasks.data.filter(task => task.cuid === cuid)[0];
 
 // Export Reducer
-export default PostReducer;
+export default TaskReducer;

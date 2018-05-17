@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react';
 
 // Import Components
-import PostListItem from './PostListItem/PostListItem';
+import TaskListItem from './TaskListItem/TaskListItem';
 
-function PostList(props) {
+function TaskList(props) {
   return (
     <div className="listView">
       {
-        props.posts.map(post => (
-          <PostListItem
-            post={post}
-            key={post.cuid}
-            onDelete={() => props.handleDeletePost(post.cuid)}
+        props.tasks.map(task => (
+          <TaskListItem
+            task={task}
+            key={task.cuid}
+            onDelete={() => props.handleDeleteTask(task.cuid)}
           />
         ))
       }
@@ -19,15 +19,13 @@ function PostList(props) {
   );
 }
 
-PostList.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.shape({
     content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
+    checked: PropTypes.bool.isRequired,
     cuid: PropTypes.string.isRequired,
   })).isRequired,
-  handleDeletePost: PropTypes.func.isRequired,
+  handleDeleteTask: PropTypes.func.isRequired,
 };
 
-export default PostList;
+export default TaskList;

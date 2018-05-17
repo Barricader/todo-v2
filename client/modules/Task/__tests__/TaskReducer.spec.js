@@ -1,79 +1,74 @@
 import test from 'ava';
 import { reducerTest } from 'redux-ava';
-import postReducer, { getPost, getPosts } from '../PostReducer';
-import { addPost, deletePost, addPosts } from '../PostActions';
+import taskReducer, { getTask, getTasks } from '../TaskReducer';
+import { addTask, deleteTask, addTasks } from '../TaskActions';
 
 test('action for ADD_POST is working', reducerTest(
-  postReducer,
+  taskReducer,
   { data: ['foo'] },
-  addPost({
-    name: 'prank',
-    title: 'first post',
+  addTask({
+    checked: false,
     content: 'Hello world!',
     _id: null,
     cuid: null,
-    slug: 'first-post',
+    slug: 'first-task',
   }),
   { data: [{
-    name: 'prank',
-    title: 'first post',
+    checked: false,
     content: 'Hello world!',
     _id: null,
     cuid: null,
-    slug: 'first-post',
+    slug: 'first-task',
   }, 'foo'] },
 ));
 
 test('action for DELETE_POST is working', reducerTest(
-  postReducer,
+  taskReducer,
   { data: [{
-    name: 'prank',
-    title: 'first post',
+    checked: false,
     content: 'Hello world!',
     cuid: 'abc',
     _id: 1,
-    slug: 'first-post',
+    slug: 'first-task',
   }] },
-  deletePost('abc'),
+  deleteTask('abc'),
   { data: [] },
 ));
 
 test('action for ADD_POSTS is working', reducerTest(
-  postReducer,
+  taskReducer,
   { data: [] },
-  addPosts([
+  addTasks([
     {
-      name: 'prank',
-      title: 'first post',
+      checked: false,
       content: 'Hello world!',
       _id: null,
       cuid: null,
-      slug: 'first-post',
+      slug: 'first-task',
     },
   ]),
   { data: [{
-    name: 'prank',
-    title: 'first post',
+    checked: false,
     content: 'Hello world!',
     _id: null,
     cuid: null,
-    slug: 'first-post',
+    slug: 'first-task',
   }] },
 ));
 
-test('getPosts selector', t => {
+test('getTasks selector', t => {
   t.deepEqual(
-    getPosts({
-      posts: { data: ['foo'] },
+    getTasks({
+      tasks: { data: ['foo'] },
     }),
     ['foo']
   );
 });
 
-test('getPost selector', t => {
+test('getTask selector', t => {
   t.deepEqual(
-    getPost({
-      posts: { data: [{ cuid: '123' }] },
+    getTask({
+      tasks: { data: [{ cuid: '123' }] },
     }, '123'),
     { cuid: '123' }
   );

@@ -5,27 +5,27 @@ import {
   ADD_POST,
   DELETE_POST,
   ADD_POSTS,
-  addPost,
-  deletePost,
-  addPosts,
-} from '../PostActions';
+  addTask,
+  deleteTask,
+  addTasks,
+} from '../TaskActions';
 
-const post = { name: 'Prashant', title: 'Hello Mern', cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'", slug: 'hello-mern', _id: 1 };
+const task = { checked: false, content: "All cats meow 'mern!'", slug: 'hello-mern', _id: 1 };
 
-test('should return the correct type for addPost', actionTest(
-  addPost,
-  post,
-  { type: ADD_POST, post },
+test('should return the correct type for addTask', actionTest(
+  addTask,
+  task,
+  { type: ADD_POST, task },
 ));
 
-test('should return the correct type for deletePost', actionTest(
-  deletePost,
-  post.cuid,
-  { type: DELETE_POST, cuid: post.cuid },
+test('should return the correct type for deleteTask', actionTest(
+  deleteTask,
+  task.cuid,
+  { type: DELETE_POST, cuid: task.cuid },
 ));
 
-test('should return the correct type for addPosts', actionTest(
-  addPosts,
-  [post],
-  { type: ADD_POSTS, posts: [post] },
+test('should return the correct type for addTasks', actionTest(
+  addTasks,
+  [task],
+  { type: ADD_POSTS, tasks: [task] },
 ));

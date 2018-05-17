@@ -1,60 +1,59 @@
 import callApi from '../../util/apiCaller';
 
 // Export Constants
-export const ADD_POST = 'ADD_POST';
-export const ADD_POSTS = 'ADD_POSTS';
-export const DELETE_POST = 'DELETE_POST';
+export const ADD_TASK = 'ADD_TASK';
+export const ADD_TASKS = 'ADD_TASKS';
+export const DELETE_TASK = 'DELETE_TASK';
 
 // Export Actions
-export function addPost(post) {
+export function addTask(task) {
   return {
-    type: ADD_POST,
-    post,
+    type: ADD_TASK,
+    task,
   };
 }
 
-export function addPostRequest(post) {
+export function addTaskRequest(task) {
   return (dispatch) => {
-    return callApi('posts', 'post', {
-      post: {
-        name: post.name,
-        title: post.title,
-        content: post.content,
+    return callApi('tasks', 'task', {
+      task: {
+        checked: task.checked,
+        content: task.content,
       },
-    }).then(res => dispatch(addPost(res.post)));
+    }).then(res => dispatch(addTask(res.task)));
   };
 }
 
-export function addPosts(posts) {
+export function addTasks(tasks) {
   return {
-    type: ADD_POSTS,
-    posts,
+    type: ADD_TASKS,
+    tasks,
   };
 }
 
-export function fetchPosts() {
+export function fetchTasks() {
   return (dispatch) => {
-    return callApi('posts').then(res => {
-      dispatch(addPosts(res.posts));
+    return callApi('tasks').then(res => {
+      dispatch(addTasks(res.tasks));
     });
   };
 }
 
-export function fetchPost(cuid) {
+export function fetchTask(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`).then(res => dispatch(addPost(res.post)));
+    return callApi(`tasks/${cuid}`).then(res => dispatch(addTask(res.task)));
   };
 }
 
-export function deletePost(cuid) {
+export function deleteTask(cuid) {
   return {
-    type: DELETE_POST,
+    type: DELETE_TASK,
     cuid,
   };
 }
 
-export function deletePostRequest(cuid) {
+export function deleteTaskRequest(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`, 'delete').then(() => dispatch(deletePost(cuid)));
+    return callApi(`tasks/${cuid}`, 'delete').then(() => dispatch(deleteTask(cuid)));
   };
 }

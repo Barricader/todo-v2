@@ -2,66 +2,65 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 // Import Components
-import PostList from '../../components/PostList';
-import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
+import TaskList from '../../components/TaskList';
+import TaskCreateWidget from '../../components/TaskCreateWidget/TaskCreateWidget';
 
 // Import Actions
-import { addPostRequest, fetchPosts, deletePostRequest } from '../../PostActions';
-import { toggleAddPost } from '../../../App/AppActions';
+import { addTaskRequest, fetchTasks, deleteTaskRequest } from '../../TaskActions';
+import { toggleAddTask } from '../../../App/AppActions';
 
 // Import Selectors
-import { getShowAddPost } from '../../../App/AppReducer';
-import { getPosts } from '../../PostReducer';
+import { getShowAddTask } from '../../../App/AppReducer';
+import { getTasks } from '../../TaskReducer';
 
-class PostListPage extends Component {
+class TaskListPage extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchPosts());
+    this.props.dispatch(fetchTasks());
   }
 
-  handleDeletePost = post => {
-    if (confirm('Do you want to delete this post')) { // eslint-disable-line
-      this.props.dispatch(deletePostRequest(post));
+  handleDeleteTask = task => {
+    if (confirm('Do you want to delete this task')) { // eslint-disable-line
+      this.props.dispatch(deleteTaskRequest(task));
     }
   };
 
-  handleAddPost = (name, title, content) => {
-    this.props.dispatch(toggleAddPost());
-    this.props.dispatch(addPostRequest({ name, title, content }));
+  handleAddTask = (content) => {
+    this.props.dispatch(toggleAddTask());
+    this.props.dispatch(addTaskRequest({ content }));
   };
 
   render() {
     return (
       <div>
-        <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
+        <TaskCreateWidget addTask={this.handleAddTask} showAddTask={this.props.showAddTask} />
+        <TaskList handleDeleteTask={this.handleDeleteTask} tasks={this.props.tasks} />
       </div>
     );
   }
 }
 
 // Actions required to provide data for this component to render in sever side.
-PostListPage.need = [() => { return fetchPosts(); }];
+TaskListPage.need = [() => { return fetchTasks(); }];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    showAddPost: getShowAddPost(state),
-    posts: getPosts(state),
+    showAddTask: getShowAddTask(state),
+    tasks: getTasks(state),
   };
 }
 
-PostListPage.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+TaskListPage.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.shape({
+    checked: PropTypes.boolean.isRequired,
     content: PropTypes.string.isRequired,
   })).isRequired,
-  showAddPost: PropTypes.bool.isRequired,
+  showAddTask: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-PostListPage.contextTypes = {
+TaskListPage.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default connect(mapStateToProps)(PostListPage);
+export default connect(mapStateToProps)(TaskListPage);

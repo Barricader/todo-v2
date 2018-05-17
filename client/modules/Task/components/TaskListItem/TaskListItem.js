@@ -3,33 +3,31 @@ import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
-import styles from './PostListItem.css';
+import styles from './TaskListItem.css';
 
-function PostListItem(props) {
+function TaskListItem(props) {
   return (
-    <div className={styles['single-post']}>
-      <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.slug}-${props.post.cuid}`} >
-          {props.post.title}
+    <div className={styles['single-task']}>
+      <h3 className={styles['task-title']}>
+        <Link to={`/tasks/${props.task.cuid}`} >
+          Test Task Title
         </Link>
       </h3>
-      <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
-      <p className={styles['post-desc']}>{props.post.content}</p>
-      <p className={styles['post-action']}><a href="#" onClick={props.onDelete}><FormattedMessage id="deletePost" /></a></p>
+      <input type="checkbox" className={styles['task-checkbox']} checked={props.task.checked} />
+      <p className={styles['task-desc']}>{props.task.content}</p>
+      <p className={styles['task-action']}><a href="#" onClick={props.onDelete}><FormattedMessage id="deleteTask" /></a></p>
       <hr className={styles.divider} />
     </div>
   );
 }
 
-PostListItem.propTypes = {
-  post: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+TaskListItem.propTypes = {
+  task: PropTypes.shape({
     content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
+    checked: PropTypes.bool.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-export default PostListItem;
+export default TaskListItem;

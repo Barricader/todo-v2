@@ -1,32 +1,31 @@
 import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
-import PostListItem from '../../components/PostListItem/PostListItem';
+import TaskListItem from '../../components/TaskListItem/TaskListItem';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
 
-const post = { name: 'Prashant', title: 'Hello Mern', slug: 'hello-mern', cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
+const task = { checked: false, cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
 const props = {
-  post,
+  task,
   onDelete: () => {},
 };
 
 test('renders properly', t => {
   const wrapper = shallowWithIntl(
-    <PostListItem {...props} />
+    <TaskListItem {...props} />
   );
 
-  t.truthy(wrapper.hasClass('single-post'));
-  t.is(wrapper.find('Link').first().prop('children'), post.title);
-  t.regex(wrapper.find('.author-name').first().text(), new RegExp(post.name));
-  t.is(wrapper.find('.post-desc').first().text(), post.content);
+  t.truthy(wrapper.hasClass('single-task'));
+  // TODO: validate checked field
+  t.is(wrapper.find('.task-desc').first().text(), task.content);
 });
 
 test('has correct props', t => {
   const wrapper = mountWithIntl(
-    <PostListItem {...props} />
+    <TaskListItem {...props} />
   );
 
-  t.deepEqual(wrapper.prop('post'), props.post);
+  t.deepEqual(wrapper.prop('task'), props.task);
   t.is(wrapper.prop('onClick'), props.onClick);
   t.is(wrapper.prop('onDelete'), props.onDelete);
 });
@@ -34,9 +33,9 @@ test('has correct props', t => {
 test('calls onDelete', t => {
   const onDelete = sinon.spy();
   const wrapper = shallowWithIntl(
-    <PostListItem post={post} onDelete={onDelete} />
+    <TaskListItem task={task} onDelete={onDelete} />
   );
 
-  wrapper.find('.post-action > a').first().simulate('click');
+  wrapper.find('.task-action > a').first().simulate('click');
   t.truthy(onDelete.calledOnce);
 });

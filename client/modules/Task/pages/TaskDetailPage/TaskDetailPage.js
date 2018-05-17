@@ -1,50 +1,46 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 
 // Import Style
-import styles from '../../components/PostListItem/PostListItem.css';
+import styles from '../../components/TaskListItem/TaskListItem.css';
 
 // Import Actions
-import { fetchPost } from '../../PostActions';
+import { fetchTask } from '../../TaskActions';
 
 // Import Selectors
-import { getPost } from '../../PostReducer';
+import { getTask } from '../../TaskReducer';
 
-export function PostDetailPage(props) {
+export function TaskDetailPage(props) {
   return (
     <div>
-      <Helmet title={props.post.title} />
-      <div className={`${styles['single-post']} ${styles['post-detail']}`}>
-        <h3 className={styles['post-title']}>{props.post.title}</h3>
-        <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
-        <p className={styles['post-desc']}>{props.post.content}</p>
+      <Helmet title="Test Task Title" />
+      <div className={`${styles['single-task']} ${styles['task-detail']}`}>
+        <input type="checkbox" className={styles['task-checkbox']} checked={props.task.checked} />
+        <p className={styles['task-desc']}>{props.task.content}</p>
       </div>
     </div>
   );
 }
 
 // Actions required to provide data for this component to render in server side.
-PostDetailPage.need = [params => {
-  return fetchPost(params.cuid);
+TaskDetailPage.need = [params => {
+  return fetchTask(params.cuid);
 }];
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
   return {
-    post: getPost(state, props.params.cuid),
+    task: getTask(state, props.params.cuid),
   };
 }
 
-PostDetailPage.propTypes = {
-  post: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+TaskDetailPage.propTypes = {
+  task: PropTypes.shape({
     content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
+    checked: PropTypes.boolean.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default connect(mapStateToProps)(PostDetailPage);
+export default connect(mapStateToProps)(TaskDetailPage);
