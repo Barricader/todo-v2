@@ -10,7 +10,7 @@ import {
   addTasks,
 } from '../TaskActions';
 
-const task = { checked: false, content: "All cats meow 'mern!'", slug: 'hello-mern', _id: 1 };
+const task = { username: 'test user', checked: false, content: "All cats meow 'mern!'", slug: 'hello-mern', _id: 1 };
 
 test('should return the correct type for addTask', actionTest(
   addTask,

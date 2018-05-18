@@ -11,8 +11,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
 // Import Actions
-import { toggleAddPost } from './AppActions';
-import { switchLanguage } from '../../modules/Intl/IntlActions';
+import { toggleAddTask } from './AppActions';
 
 export class App extends Component {
   constructor(props) {
@@ -24,8 +23,8 @@ export class App extends Component {
     this.setState({isMounted: true}); // eslint-disable-line
   }
 
-  toggleAddPostSection = () => {
-    this.props.dispatch(toggleAddPost());
+  toggleAddTaskSection = () => {
+    this.props.dispatch(toggleAddTask());
   };
 
   render() {
@@ -34,8 +33,8 @@ export class App extends Component {
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
-            title="TODO App V2"
-            titleTemplate="%s - Blog App"
+            title="Home"
+            titleTemplate="%s - Task Manager"
             meta={[
               { charset: 'utf-8' },
               {
@@ -49,9 +48,7 @@ export class App extends Component {
             ]}
           />
           <Header
-            switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-            intl={this.props.intl}
-            toggleAddPost={this.toggleAddPostSection}
+            toggleAddTask={this.toggleAddTaskSection}
           />
           <div className={styles.container}>
             {this.props.children}

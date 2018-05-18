@@ -6,7 +6,7 @@ import TaskList from '../../components/TaskList';
 import TaskCreateWidget from '../../components/TaskCreateWidget/TaskCreateWidget';
 
 // Import Actions
-import { addTaskRequest, fetchTasks, deleteTaskRequest } from '../../TaskActions';
+import { addTaskRequest, fetchTasks, deleteTaskRequest, updateTaskRequest } from '../../TaskActions';
 import { toggleAddTask } from '../../../App/AppActions';
 
 // Import Selectors
@@ -24,16 +24,22 @@ class TaskListPage extends Component {
     }
   };
 
-  handleAddTask = (content) => {
+  handleCheckTask = task => {
+    const newTask = task;
+    newTask.checked = !newTask.checked;
+    this.props.dispatch(updateTaskRequest(newTask));
+  };
+
+  handleAddTask = (username, content) => {
     this.props.dispatch(toggleAddTask());
-    this.props.dispatch(addTaskRequest({ content }));
+    this.props.dispatch(addTaskRequest({ username, content }));
   };
 
   render() {
     return (
       <div>
         <TaskCreateWidget addTask={this.handleAddTask} showAddTask={this.props.showAddTask} />
-        <TaskList handleDeleteTask={this.handleDeleteTask} tasks={this.props.tasks} />
+        <TaskList handleDeleteTask={this.handleDeleteTask} handleCheckTask={this.handleCheckTask} tasks={this.props.tasks} />
       </div>
     );
   }
@@ -52,7 +58,8 @@ function mapStateToProps(state) {
 
 TaskListPage.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.shape({
-    checked: PropTypes.boolean.isRequired,
+    username: PropTypes.string.isRequired,
+    checked: PropTypes.bool.isRequired,
     content: PropTypes.string.isRequired,
   })).isRequired,
   showAddTask: PropTypes.bool.isRequired,

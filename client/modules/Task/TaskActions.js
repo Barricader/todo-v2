@@ -4,6 +4,7 @@ import callApi from '../../util/apiCaller';
 export const ADD_TASK = 'ADD_TASK';
 export const ADD_TASKS = 'ADD_TASKS';
 export const DELETE_TASK = 'DELETE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
 
 // Export Actions
 export function addTask(task) {
@@ -15,9 +16,9 @@ export function addTask(task) {
 
 export function addTaskRequest(task) {
   return (dispatch) => {
-    return callApi('tasks', 'task', {
+    return callApi('tasks', 'post', {
       task: {
-        checked: task.checked,
+        username: task.username,
         content: task.content,
       },
     }).then(res => dispatch(addTask(res.task)));
@@ -55,5 +56,26 @@ export function deleteTask(cuid) {
 export function deleteTaskRequest(cuid) {
   return (dispatch) => {
     return callApi(`tasks/${cuid}`, 'delete').then(() => dispatch(deleteTask(cuid)));
+  };
+}
+
+export function updateTask(task) {
+  return {
+    type: UPDATE_TASK,
+    task,
+  };
+}
+
+export function updateTaskRequest(task) {
+  return (dispatch) => {
+    return callApi(`tasks/${task.cuid}`, 'post', {
+      task: {
+        username: task.username,
+        checked: task.checked,
+        content: task.content,
+        cuid: task.cuid,
+        dateAdded: task.dateAdded,
+      },
+    }).then(() => dispatch(updateTask(task)));
   };
 }

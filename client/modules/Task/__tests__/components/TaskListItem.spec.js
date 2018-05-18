@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import TaskListItem from '../../components/TaskListItem/TaskListItem';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
 
-const task = { checked: false, cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
+const task = { username: 'test user', checked: false, cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
 const props = {
   task,
   onDelete: () => {},
@@ -16,7 +16,7 @@ test('renders properly', t => {
   );
 
   t.truthy(wrapper.hasClass('single-task'));
-  // TODO: validate checked field
+  t.is(wrapper.find('.author-name').first().text(), task.username);
   t.is(wrapper.find('.task-desc').first().text(), task.content);
 });
 

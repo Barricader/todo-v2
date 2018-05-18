@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
+  username: { type: 'String', required: true },
   content: { type: 'String', required: true },
   cuid: { type: 'String', required: true },
   checked: { type: 'Boolean', required: true },

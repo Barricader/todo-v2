@@ -7,6 +7,7 @@ test('action for ADD_POST is working', reducerTest(
   taskReducer,
   { data: ['foo'] },
   addTask({
+    username: 'test user',
     checked: false,
     content: 'Hello world!',
     _id: null,
@@ -14,6 +15,7 @@ test('action for ADD_POST is working', reducerTest(
     slug: 'first-task',
   }),
   { data: [{
+    username: 'test user',
     checked: false,
     content: 'Hello world!',
     _id: null,
@@ -25,6 +27,7 @@ test('action for ADD_POST is working', reducerTest(
 test('action for DELETE_POST is working', reducerTest(
   taskReducer,
   { data: [{
+    username: 'test user',
     checked: false,
     content: 'Hello world!',
     cuid: 'abc',
@@ -38,16 +41,17 @@ test('action for DELETE_POST is working', reducerTest(
 test('action for ADD_POSTS is working', reducerTest(
   taskReducer,
   { data: [] },
-  addTasks([
-    {
-      checked: false,
-      content: 'Hello world!',
-      _id: null,
-      cuid: null,
-      slug: 'first-task',
-    },
+  addTasks([{
+    username: 'test user',
+    checked: false,
+    content: 'Hello world!',
+    _id: null,
+    cuid: null,
+    slug: 'first-task',
+  },
   ]),
   { data: [{
+    username: 'test user',
     checked: false,
     content: 'Hello world!',
     _id: null,

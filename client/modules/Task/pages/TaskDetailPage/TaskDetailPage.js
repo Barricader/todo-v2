@@ -16,7 +16,8 @@ export function TaskDetailPage(props) {
     <div>
       <Helmet title="Test Task Title" />
       <div className={`${styles['single-task']} ${styles['task-detail']}`}>
-        <input type="checkbox" className={styles['task-checkbox']} checked={props.task.checked} />
+        <p className={styles['author-name']}>By {props.task.username}</p>
+        Done: <input type="checkbox" className={styles['task-checkbox']} checked={props.task.checked} /* onChange={this.handleChecked}*/ />
         <p className={styles['task-desc']}>{props.task.content}</p>
       </div>
     </div>
@@ -37,10 +38,12 @@ function mapStateToProps(state, props) {
 
 TaskDetailPage.propTypes = {
   task: PropTypes.shape({
+    username: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    checked: PropTypes.boolean.isRequired,
+    checked: PropTypes.bool.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
+//   handleChecked: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(TaskDetailPage);

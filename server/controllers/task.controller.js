@@ -24,22 +24,76 @@ export function getTasks(req, res) {
  * @returns void
  */
 export function addTask(req, res) {
-  if (!req.body.task.content) {
+  if (!req.body.task.username || !req.body.task.content) {
     res.status(403).end();
+  } else {
+    const newTask = new Task(req.body.task);
+
+    // Let's sanitize inputs
+    newTask.username = sanitizeHtml(newTask.username);
+    newTask.content = sanitizeHtml(newTask.content);
+    newTask.checked = false;
+
+    newTask.cuid = cuid();
+    newTask.save((err, saved) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json({ task: saved });
+      }
+    });
   }
+}
 
-  const newTask = new Task(req.body.task);
+/**
+ * Update a task
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function updateTask(req, res) {
+  if (!req.body.task.cuid || !req.body.task.username || !req.body.task.content) {
+    res.status(403).end();
+  } else {
+    // const newTask = new Task(req.body.task);
 
-  // Let's sanitize inputs
-  newTask.content = sanitizeHtml(newTask.content);
+    // TODO: attempt to copy over data to new var from req instead of assigning req to var
+    // const newTask = new Task();
+    // newTask.username = req.body.task.username;
+    // newTask.checked = req.body.task.checked;
+    // newTask.content = req.body.task.content;
+    // newTask.cuid = req.body.task.cuid;
+    // newTask.dateAdded = req.body.task.dateAdded;
 
-  newTask.cuid = cuid();
-  newTask.save((err, saved) => {
-    if (err) {
-      res.status(500).send(err);
+    const newTask = {
+      username: req.body.task.username,
+      checked: req.body.task.checked,
+      content: req.body.task.content,
+      cuid: req.body.task.cuid,
+      dateAdded: req.body.task.dateAdded,
     }
-    res.json({ task: saved });
-  });
+
+    // Setup query
+    const query = { cuid: newTask.cuid };
+
+    // Let's sanitize inputs
+    newTask.username = sanitizeHtml(newTask.username);
+    newTask.content = sanitizeHtml(newTask.content);
+
+    delete newTask._id;
+
+    console.log(newTask);
+
+    Task.findOneAndUpdate(query, newTask, { upsert: true }, (err, updated) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        console.log(`Updating task: ${newTask}`);
+        res.json({ task: newTask });
+      }
+    });
+  }
 }
 
 /**

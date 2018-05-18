@@ -1,7 +1,6 @@
 import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
-import { FormattedMessage } from 'react-intl';
 import { PostCreateWidget } from '../../components/PostCreateWidget/PostCreateWidget';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
 
@@ -17,7 +16,7 @@ test('renders properly', t => {
 
   t.truthy(wrapper.hasClass('form'));
   t.truthy(wrapper.hasClass('appear'));
-  t.truthy(wrapper.find('h2').first().containsMatchingElement(<FormattedMessage id="createNewPost" />));
+  t.truthy(wrapper.find('h2').first().containsMatchingElement('Create new post'));
   t.is(wrapper.find('input').length, 2);
   t.is(wrapper.find('textarea').length, 1);
 });
