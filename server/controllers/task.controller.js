@@ -71,7 +71,7 @@ export function updateTask(req, res) {
       content: req.body.task.content,
       cuid: req.body.task.cuid,
       dateAdded: req.body.task.dateAdded,
-    }
+    };
 
     // Setup query
     const query = { cuid: newTask.cuid };
@@ -90,7 +90,7 @@ export function updateTask(req, res) {
         res.status(500).send(err);
       } else {
         console.log(`Updating task: ${newTask}`);
-        res.json({ task: newTask });
+        res.json({ task: updated });
       }
     });
   }
