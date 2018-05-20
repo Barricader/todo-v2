@@ -11,11 +11,11 @@ export function Header(props, context) {
         <h1 className={styles['site-title']}>
           <Link to="/" >Task Manager</Link>
         </h1>
-        {/* {
+        {
           context.router.isActive('/', true)
             ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddTask}>Add Task</a>
             : null
-        } */}
+        }
       </div>
     </div>
   );

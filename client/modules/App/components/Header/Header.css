@@ -17,7 +17,7 @@
 }
 
 .add-post-button {
-  display: inline-block;
+  display: none;
   color: #FFF;
   background: #03A9F4;
   padding: 8px 16px;
