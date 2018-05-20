@@ -1,26 +1,19 @@
-.header {
-  background: #eee url('../../header-bk.png') center;
-  background-size: cover;
-  border-bottom: 1px solid #ccc;
-}
 
 .content {
   width: 100%;
   max-width: 980px;
   margin: auto;
-  padding: 64px 16px;
   overflow: auto;
 }
 
 .site-title {
-  font-weight: 300;
-  font-size: 42px;
-  float: left;
+    text-align: center;
+    font-size: 40px;
 }
 
 .site-title a {
   text-decoration: none;
-  color: #FFF;
+  color: #000;
 }
 
 .add-post-button {

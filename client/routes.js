@@ -31,13 +31,5 @@ export default (
         });
       }}
     />
-    <Route
-      path="/tasks/:cuid"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Task/pages/TaskDetailPage/TaskDetailPage').default);
-        });
-      }}
-    />
   </Route>
 );

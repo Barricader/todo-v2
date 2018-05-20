@@ -15,14 +15,13 @@ export class TaskCreateWidget extends Component {
   };
 
   render() {
-    const cls = `${styles.form} ${(this.props.showAddTask ? styles.appear : '')}`;
+    const cls = `${styles.form} ${styles.appear}`;
     return (
       <div className={cls}>
         <div className={styles['form-content']}>
-          <h2 className={styles['form-title']}>Create new task</h2>
           <input placeholder="User Name" className={styles['form-field']} ref="username" />
           <textarea placeholder="Task Content" className={styles['form-field']} ref="content" />
-          <a className={styles['task-submit-button']} href="#" onClick={this.addTask}>Submit</a>
+          <a className={styles['task-submit-button']} href="#" onClick={this.addTask}>+</a>
         </div>
       </div>
     );
@@ -31,7 +30,6 @@ export class TaskCreateWidget extends Component {
 
 TaskCreateWidget.propTypes = {
   addTask: PropTypes.func.isRequired,
-  showAddTask: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(TaskCreateWidget);
