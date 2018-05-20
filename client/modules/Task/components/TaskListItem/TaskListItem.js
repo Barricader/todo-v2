@@ -12,7 +12,7 @@ function TaskListItem(props) {
           Test Task Title
         </Link>
       </h3> */}
-      <input type="checkbox" className={styles['task-checkbox']} onChange={props.onCheck} /* defaultChecked={props.task.checked}*/ />
+      <input type="checkbox" className={styles['task-checkbox']} checked={props.task.checked} onChange={props.onCheck} />
       <p className={styles['task-content']}>{props.task.content}</p>
       <p className={styles['task-user']}>By {props.task.username}</p>
       <p className={styles['task-action']}><a href="#" onClick={props.onDelete}>Delete Task</a></p>
@@ -26,7 +26,7 @@ TaskListItem.propTypes = {
     username: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
-    cuid: PropTypes.string.isRequired,
+    // cuid: PropTypes.string.isRequired,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
   onCheck: PropTypes.func.isRequired,

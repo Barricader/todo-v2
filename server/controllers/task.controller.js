@@ -11,6 +11,7 @@ import sanitizeHtml from 'sanitize-html';
 export function getTasks(req, res) {
   Task.find().sort('-dateAdded').exec((err, tasks) => {
     if (err) {
+      console.log(err); // eslint-disable-line
       res.status(500).send(err);
     }
     res.json({ tasks });
@@ -37,6 +38,7 @@ export function addTask(req, res) {
     newTask.cuid = cuid();
     newTask.save((err, saved) => {
       if (err) {
+        console.log(err); // eslint-disable-line
         res.status(500).send(err);
       } else {
         res.json({ task: saved });
@@ -55,16 +57,6 @@ export function updateTask(req, res) {
   if (!req.body.task.cuid || !req.body.task.username || !req.body.task.content) {
     res.status(403).end();
   } else {
-    // const newTask = new Task(req.body.task);
-
-    // TODO: attempt to copy over data to new var from req instead of assigning req to var
-    // const newTask = new Task();
-    // newTask.username = req.body.task.username;
-    // newTask.checked = req.body.task.checked;
-    // newTask.content = req.body.task.content;
-    // newTask.cuid = req.body.task.cuid;
-    // newTask.dateAdded = req.body.task.dateAdded;
-
     const newTask = {
       username: req.body.task.username,
       checked: req.body.task.checked,
@@ -80,16 +72,14 @@ export function updateTask(req, res) {
     newTask.username = sanitizeHtml(newTask.username);
     newTask.content = sanitizeHtml(newTask.content);
 
+    // Remove _id field so Mongo doesn't cry
     delete newTask._id;
-
-    console.log(newTask);
 
     Task.findOneAndUpdate(query, newTask, { upsert: true }, (err, updated) => {
       if (err) {
-        console.log(err);
+        console.log(err); // eslint-disable-line
         res.status(500).send(err);
       } else {
-        console.log(`Updating task: ${newTask}`);
         res.json({ task: updated });
       }
     });
@@ -105,6 +95,7 @@ export function updateTask(req, res) {
 export function getTask(req, res) {
   Task.findOne({ cuid: req.params.cuid }).exec((err, task) => {
     if (err) {
+      console.log(err); // eslint-disable-line
       res.status(500).send(err);
     }
     res.json({ task });
@@ -120,6 +111,7 @@ export function getTask(req, res) {
 export function deleteTask(req, res) {
   Task.findOne({ cuid: req.params.cuid }).exec((err, task) => {
     if (err) {
+      console.log(err); // eslint-disable-line
       res.status(500).send(err);
     }
 
