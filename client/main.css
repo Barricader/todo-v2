@@ -1,30 +1,23 @@
 /*
   Global CSS file
 */
-*{
+* {
 	margin: 0;
 	padding: 0;
-	/* -webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box; */
 	line-height: normal;
 }
 
 ::-webkit-input-placeholder {
-	color:#aaa;
-	font-weight: 300;
+	color: #888;
 }
 ::-moz-placeholder {
-	color:#aaa;
-	font-weight: 300;
+	color: #888;
 }
 :-ms-input-placeholder {
-	color:#aaa;
-	font-weight: 300;
+	color: #888;
 }
 input:-moz-placeholder {
-	color:#aaa;
-	font-weight: 300;
+	color: #888;
 }
 
 body {

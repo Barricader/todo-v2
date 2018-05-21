@@ -11,7 +11,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
 // Import Actions
-import { toggleAddTask } from './AppActions';
+import { toggleAddTask, setToken } from './AppActions';
 
 export class App extends Component {
   constructor(props) {
@@ -20,12 +20,17 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
+    this.setState({ isMounted: true }); // eslint-disable-line
   }
+
+  setTokenSection = (token) => {
+    this.props.dispatch(setToken(token));
+  };
 
   toggleAddTaskSection = () => {
     this.props.dispatch(toggleAddTask());
   };
+
 
   render() {
     return (
@@ -51,7 +56,8 @@ export class App extends Component {
             toggleAddTask={this.toggleAddTaskSection}
           />
           <div className={styles.container}>
-            {this.props.children}
+            {/* {this.props.children} */}
+            {React.cloneElement(this.props.children, { setToken: this.setTokenSection })}
           </div>
         </div>
         <Footer />
