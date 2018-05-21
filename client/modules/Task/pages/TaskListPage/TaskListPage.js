@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 // Import Components
 import TaskList from '../../components/TaskList';
@@ -12,6 +13,7 @@ import { toggleAddTask } from '../../../App/AppActions';
 // Import Selectors
 import { getShowAddTask } from '../../../App/AppReducer';
 import { getTasks } from '../../TaskReducer';
+import { getToken } from '../../../User/UserReducer';
 
 class TaskListPage extends Component {
   componentDidMount() {
@@ -36,6 +38,12 @@ class TaskListPage extends Component {
   };
 
   render() {
+    // Check if logged in?????????????????
+    if (!this.props.token) {
+      browserHistory.push('/signin');
+      // history.push('/signin');
+    }
+
     return (
       <div>
         <TaskCreateWidget addTask={this.handleAddTask} showAddTask={this.props.showAddTask} />
@@ -53,6 +61,7 @@ function mapStateToProps(state) {
   return {
     showAddTask: getShowAddTask(state),
     tasks: getTasks(state),
+    token: getToken(state),
   };
 }
 
@@ -64,6 +73,8 @@ TaskListPage.propTypes = {
   })).isRequired,
   showAddTask: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
+  token: PropTypes.object.isRequired,
+  // history: PropTypes.object.isRequired,
 };
 
 TaskListPage.contextTypes = {

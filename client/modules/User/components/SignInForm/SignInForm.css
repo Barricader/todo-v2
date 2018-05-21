@@ -39,6 +39,8 @@
 
 h2 {
   text-align: center;
+  width: 120px;
+  margin: auto;
 }
 
 input:invalid:focus {
@@ -49,4 +51,23 @@ input:invalid:focus {
 input:required {
   box-shadow: none;
   border-color: #ccc;
+}
+
+.nav-button {
+  display: flex;
+  float: right;
+  width: 80px;
+  height: 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;  
+  font-size: 20px;
+  padding: 4px;
+  text-decoration: none;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-button:hover {
+  background-color: #bbb;
 }

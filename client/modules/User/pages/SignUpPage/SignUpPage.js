@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 // Import Components
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
@@ -13,7 +14,9 @@ class SignUpPage extends Component {
   };
 
   handleAddUser = (email, password) => {
-    this.props.dispatch(addUserRequest({ email, password }));
+    this.props.dispatch(addUserRequest({ email, password })).then(() => {
+      browserHistory.push('/signin');
+    });
   };
 
   handleUpdateUser = user => {

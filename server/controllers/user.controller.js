@@ -176,24 +176,26 @@ export function signIn(req, res) {
         console.log(err); // eslint-disable-line
         res.status(500).send(err);
       } else {
-        // if (bcrypt.compareSync(newUser.password, user.password))
-        bcrypt.compare(newUser.password, user.password, (compareErr, compareRes) => {
-          if (compareErr) {
-            console.log(compareErr); // eslint-disable-line
-            res.status(500).send(err);
-          } else {
-            if (compareRes) {
-              // Send JSON token to use
-              const token = getJWT(user);
-              console.log(token);
-              res.status(200).json({ T: token });
+        if (user) {
+          // if (bcrypt.compareSync(newUser.password, user.password))
+          bcrypt.compare(newUser.password, user.password, (compareErr, compareRes) => {
+            if (compareErr) {
+              console.log(compareErr); // eslint-disable-line
+              res.status(500).send(err);
             } else {
-              // Send invalid credentials error message
-              console.log('rip compare');
-              res.status(401).json({ auth: false });
+              if (compareRes) {
+                // Send JSON token to use
+                const token = getJWT(user);
+                res.status(200).json({ token });
+              } else {
+                // Send invalid credentials error message
+                res.status(401).json({ auth: false });
+              }
             }
-          }
-        });
+          });
+        } else {
+          res.status(401).json({ auth: false });
+        }
       }
     });
   }

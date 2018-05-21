@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './modules/App/components/DevTools';
 import rootReducer from './reducers';
+import StateLoader from './state.loader.js';
 
 export function configureStore(initialState = {}) {
   // Middleware and store enhancers
@@ -17,7 +18,17 @@ export function configureStore(initialState = {}) {
     enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
 
-  const store = createStore(rootReducer, initialState, compose(...enhancers));
+  // Persistent state helper
+  const stateLoader = new StateLoader(initialState);
+  const stateLoaderState = stateLoader.loadState();
+
+  // const store = createStore(rootReducer, initialState, compose(...enhancers));
+  // const store = createStore(rootReducer, stateLoaderState || initialState, compose(...enhancers));
+  const store = createStore(rootReducer, stateLoaderState, compose(...enhancers));
+
+  store.subscribe(() => {
+    stateLoader.saveState(store.getState());
+  });
 
   // For hot reloading reducers
   if (module.hot) {

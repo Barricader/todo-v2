@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { injectIntl } from 'react-intl';
+import { Link } from 'react-router';
 
 // Import Style
 import styles from './SignInForm.css';
@@ -17,14 +18,17 @@ export class SignInForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.signIn}>
-        <h2>Sign In</h2>
-        <div className={styles['form-content']}>
-          <input placeholder="Email" type="email" className={styles['form-field']} ref="email" required />
-          <input type="password" placeholder="Password" className={styles['form-field']} ref="password" minLength="7" required />
-          <input type="submit" value="Sign In" className={styles['task-submit-button']} />
-        </div>
-      </form>
+      <div>
+        <Link className={styles['nav-button']} to="/signup" >Sign Up</Link>
+        <form onSubmit={this.signIn}>
+          <h2>Sign In</h2>
+          <div className={styles['form-content']}>
+            <input placeholder="Email" type="email" className={styles['form-field']} ref="email" required />
+            <input type="password" placeholder="Password" className={styles['form-field']} ref="password" minLength="7" required />
+            <input type="submit" value="Sign In" className={styles['task-submit-button']} />
+          </div>
+        </form>
+      </div>
     );
   }
 }
