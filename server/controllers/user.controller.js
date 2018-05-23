@@ -4,6 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import Cookies from 'universal-cookie';
 
 function getJWT(user) {
   return jwt.sign({
@@ -186,7 +187,9 @@ export function signIn(req, res) {
               if (compareRes) {
                 // Send JSON token to use
                 const token = getJWT(user);
-                res.status(200).json({ token });
+                const cookies = new Cookies();
+                cookies.set('jwt', token, { path: '/' });
+                res.status(200).cookie('jwt', token).json({ token });
               } else {
                 // Send invalid credentials error message
                 res.status(401).json({ auth: false });

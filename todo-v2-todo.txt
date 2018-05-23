@@ -1,9 +1,10 @@
 tests
-auto assign username based on currently logged in user
 make username and email unique
 react redirect???
 find all // TODO and complete them
-save jwt to props or state or whatever and check that
-logout
 gettasks(email / cuid)
-check if token is expired
+
+
+auto assign username based on currently logged in user
+move sign buttons
+logout

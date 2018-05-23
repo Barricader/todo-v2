@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import Cookies from 'universal-cookie';
 
 // Import Components
 import SignInForm from '../../components/SignInForm/SignInForm';
@@ -13,23 +14,18 @@ import { getToken } from '../../UserReducer';
 
 class SignInPage extends Component {
   handleSignIn = (email, password) => {
-    // const test = this.props.dispatch(signInRequest({ email, password }));
     this.props.dispatch(signInRequest({ email, password })).then(() => {
-      // console.log(value);
-      // console.log(this.props.token);
+      console.log(`sign in stuff: ${this.props.token.token}`);
       if (this.props.token.token) {
+        const cookies = new Cookies();
+
+        cookies.set('jwt', this.props.token.token, { path: '/' });
         browserHistory.push('/');
       } else {
         // Error, incorrect credentials
 
       }
     });
-    // console.log(test);
-    // console.log(test.then());
-    // TODO: check if signed in successfully
-    // TODO: use task reducer in users to get token for whole app instead of using app reducer??????????
-    // this.props.dispatch(navigateTo({ routeName: 'TaskListPage' }));
-    // this.props.setToken(token);
   };
 
   handleUpdateUser = user => {
@@ -56,6 +52,7 @@ function mapStateToProps(state) {
 SignInPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   token: PropTypes.object,
+  history: PropTypes.object.isRequired,
 };
 
 SignInPage.contextTypes = {

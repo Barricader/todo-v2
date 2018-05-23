@@ -6,11 +6,10 @@ import styles from './TaskCreateWidget.css';
 
 export class TaskCreateWidget extends Component {
   addTask = () => {
-    const usernameRef = this.refs.username;
     const contentRef = this.refs.content;
-    if (usernameRef.value && contentRef.value) {
-      this.props.addTask(usernameRef.value, contentRef.value);
-      usernameRef.value = contentRef.value = '';
+    if (contentRef.value) {
+      this.props.addTask(contentRef.value);
+      contentRef.value = '';
     }
   };
 
@@ -19,7 +18,6 @@ export class TaskCreateWidget extends Component {
     return (
       <div className={cls}>
         <div className={styles['form-content']}>
-          <input placeholder="User Name" className={styles['form-field']} ref="username" />
           <textarea placeholder="Task Content" className={styles['form-field']} ref="content" />
           <a className={styles['task-submit-button']} href="#" onClick={this.addTask}>+</a>
         </div>
