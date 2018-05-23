@@ -56,8 +56,8 @@ export class App extends Component {
             toggleAddTask={this.toggleAddTaskSection}
           />
           <div className={styles.container}>
-            {/* {this.props.children} */}
-            {React.cloneElement(this.props.children, { setToken: this.setTokenSection })}
+            {this.props.children}
+            {/* {React.cloneElement(this.props.children, { setToken: this.setTokenSection })} */}
           </div>
         </div>
         <Footer />

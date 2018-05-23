@@ -40,5 +40,8 @@ export const getTasks = state => state.tasks.data;
 // Get task by cuid
 export const getTask = (state, cuid) => state.tasks.data.filter(task => task.cuid === cuid)[0];
 
+// Get task by username
+export const getTasksByUsername = (state, username) => state.tasks.data.filter(task => task.username === username);
+
 // Export Reducer
 export default TaskReducer;

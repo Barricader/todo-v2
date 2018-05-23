@@ -16,6 +16,7 @@ class SignUpPage extends Component {
   handleAddUser = (email, password) => {
     this.props.dispatch(addUserRequest({ email, password })).then(() => {
       browserHistory.push('/signin');
+      // this.props.history.push('/signin');
     });
   };
 
@@ -35,6 +36,7 @@ class SignUpPage extends Component {
 
 SignUpPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 SignUpPage.contextTypes = {

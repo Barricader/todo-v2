@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
+// import passport from 'passport';
+// import flash from 'connect-flash';
+// import session from 'express-session';
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -32,6 +35,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
+import cookieParser from 'cookie-parser';
 
 // Import required modules
 import routes from '../client/routes';
@@ -57,11 +61,23 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 
 // Apply body Parser and server public assets and routes
 app.use(compression());
+app.use(cookieParser());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api', tasks);
 app.use('/api', users);
+
+// passport
+// app.use(session({
+//   secret: serverConfig.secret,
+//   resave: true,
+//   cookie: { maxAge: 1000 * 60 * 60 * 24 },
+//   saveUninitialized: true,
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
@@ -123,7 +139,17 @@ app.use((req, res, next) => {
       return next();
     }
 
-    const store = configureStore();
+    if (req.url === '/' && !req.cookies.jwt) {
+      return res.redirect('/signin');
+    }
+
+    const store = configureStore({
+      users: {
+        token: {
+          token: req.cookies.jwt || null,
+        },
+      },
+    });
 
     return fetchComponentData(store, renderProps.components, renderProps.params)
       .then(() => {
