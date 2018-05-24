@@ -9,10 +9,6 @@ import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import { addUserRequest, signInRequest, updateUserRequest } from '../../UserActions';
 
 class SignUpPage extends Component {
-  handleSignIn = (email, password) => {
-    this.props.dispatch(signInRequest({ email, password }));
-  };
-
   handleAddUser = (email, password) => {
     this.props.dispatch(addUserRequest({ email, password })).then(() => {
       browserHistory.push('/signin');

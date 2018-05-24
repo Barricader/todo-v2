@@ -5,17 +5,22 @@ import { Link } from 'react-router';
 import styles from './Header.css';
 
 export function Header(props, context) {
+  let url = '/signin';
+  let text = 'Sign In';
+
+  if (props.location.pathname === '/') {
+    url = '/api/signout';
+    text = 'Sign Out';
+  } else if (props.location.pathname === '/signin') {
+    url = '/signup';
+    text = 'Sign Up';
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.content}>
-        <h1 className={styles['site-title']}>
-          <Link to="/" >Task Manager</Link>
-        </h1>
-        {
-          context.router.isActive('/', true)
-            ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddTask}>Add Task</a>
-            : null
-        }
+        <h1 className={styles['site-title']}>Task Manager</h1>
+        <a className={styles['nav-button']} href={url} >{text}</a>
       </div>
     </div>
   );
@@ -26,7 +31,7 @@ Header.contextTypes = {
 };
 
 Header.propTypes = {
-  toggleAddTask: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default Header;

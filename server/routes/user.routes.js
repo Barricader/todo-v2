@@ -20,4 +20,7 @@ router.route('/users/:cuid').delete(UserController.deleteUser);
 // Sign a user in
 router.route('/signin').post(UserController.signIn);
 
+// Sign a user out
+router.route('/signout').get(UserController.signOut);
+
 export default router;

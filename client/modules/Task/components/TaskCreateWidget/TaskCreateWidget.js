@@ -14,9 +14,8 @@ export class TaskCreateWidget extends Component {
   };
 
   render() {
-    const cls = `${styles.form} ${styles.appear}`;
     return (
-      <div className={cls}>
+      <div>
         <div className={styles['form-content']}>
           <textarea placeholder="Task Content" className={styles['form-field']} ref="content" />
           <a className={styles['task-submit-button']} href="#" onClick={this.addTask}>+</a>

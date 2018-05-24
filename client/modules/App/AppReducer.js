@@ -14,11 +14,6 @@ const AppReducer = (state = initialState, action) => {
         showAddTask: !state.showAddTask,
       };
 
-    // case SET_TOKEN:
-    //   return {
-    //     token: action.token,
-    //   };
-
     default:
       return state;
   }
@@ -26,7 +21,6 @@ const AppReducer = (state = initialState, action) => {
 
 /* Selectors */
 export const getShowAddTask = state => state.app.showAddTask;
-// export const getToken = state => state.app.token;
 
 // Export Reducer
 export default AppReducer;

@@ -19,7 +19,6 @@ export class SignInForm extends Component {
   render() {
     return (
       <div>
-        <Link className={styles['nav-button']} to="/signup" >Sign Up</Link>
         <form onSubmit={this.signIn}>
           <h2>Sign In</h2>
           <div className={styles['form-content']}>

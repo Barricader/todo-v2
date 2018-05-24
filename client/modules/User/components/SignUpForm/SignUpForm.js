@@ -34,7 +34,6 @@ export class SignUpForm extends Component {
   render() {
     return (
       <div>
-        <Link className={styles['nav-button']} to="/signin" >Sign In</Link>
         <form onSubmit={this.signUp}>
           <h2>Sign Up</h2>
           <div className={styles['form-content']}>

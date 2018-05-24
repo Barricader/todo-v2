@@ -141,6 +141,8 @@ app.use((req, res, next) => {
 
     if (req.url === '/' && !req.cookies.jwt) {
       return res.redirect('/signin');
+    } else if ((req.url === '/signin' || req.url === '/signup') && req.cookies.jwt) {
+      return res.redirect('/');
     }
 
     const store = configureStore({

@@ -1,10 +1,10 @@
 import User from '../models/user';
 import cuid from 'cuid';
 import sanitizeHtml from 'sanitize-html';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 function getJWT(user) {
   return jwt.sign({
@@ -90,8 +90,7 @@ export function updateUser(req, res) {
     };
 
     // TODO: check for existing email (ignore if cuid is same as updated user)
-    // TODO: do something with password and salt (new function?)
-    // Check if password is changed and if so change it
+    // TODO: Check if password is changed and if so change it
 
     // Setup query
     const query = { cuid: newUser.cuid };
@@ -187,9 +186,12 @@ export function signIn(req, res) {
               if (compareRes) {
                 // Send JSON token to use
                 const token = getJWT(user);
-                const cookies = new Cookies();
-                cookies.set('jwt', token, { path: '/' });
-                res.status(200).cookie('jwt', token).json({ token });
+                // const cookies = new Cookies();
+                // cookies.set('jwt', token, { path: '/' });
+                // console.log(token);
+                // res.cookie('jwt', token, { maxAge: 86400000 });
+                res.cookie('jwt', token, { expire: 86400000 + Date.now() });
+                res.status(200).json({ token });
               } else {
                 // Send invalid credentials error message
                 res.status(401).json({ auth: false });
@@ -202,4 +204,16 @@ export function signIn(req, res) {
       }
     });
   }
+}
+
+/**
+ * Sign a user out
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function signOut(req, res) {
+  // res.status(200).cookie('jwt', '', { expires: 0 }).redirect('/signin');
+  res.clearCookie('jwt');
+  res.status(200).redirect('/signin');
 }

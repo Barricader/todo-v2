@@ -4,7 +4,6 @@ react redirect???
 find all // TODO and complete them
 gettasks(email / cuid)
 
-
-auto assign username based on currently logged in user
+change font family for content
+remove error ui from sign in fields
 move sign buttons
-logout

@@ -15,10 +15,9 @@ import { getToken } from '../../UserReducer';
 class SignInPage extends Component {
   handleSignIn = (email, password) => {
     this.props.dispatch(signInRequest({ email, password })).then(() => {
-      console.log(`sign in stuff: ${this.props.token.token}`);
+      // console.log(`sign in stuff: ${this.props.token.token}`);
       if (this.props.token.token) {
         const cookies = new Cookies();
-
         cookies.set('jwt', this.props.token.token, { path: '/' });
         browserHistory.push('/');
       } else {

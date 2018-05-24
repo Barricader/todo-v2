@@ -53,11 +53,10 @@ export class App extends Component {
             ]}
           />
           <Header
-            toggleAddTask={this.toggleAddTaskSection}
+            location={this.props.location}
           />
           <div className={styles.container}>
             {this.props.children}
-            {/* {React.cloneElement(this.props.children, { setToken: this.setTokenSection })} */}
           </div>
         </div>
         <Footer />
@@ -70,6 +69,7 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 // Retrieve data from store as props
