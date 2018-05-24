@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { injectIntl } from 'react-intl';
-import { Link } from 'react-router';
 
 // Import Style
 import styles from './SignUpForm.css';

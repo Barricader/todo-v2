@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 
 // Import Actions
-import { addUserRequest, signInRequest, updateUserRequest } from '../../UserActions';
+import { addUserRequest, updateUserRequest } from '../../UserActions';
 
 class SignUpPage extends Component {
   handleAddUser = (email, password) => {

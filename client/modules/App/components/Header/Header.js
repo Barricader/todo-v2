@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 
 // Import Style
 import styles from './Header.css';
 
-export function Header(props, context) {
+export function Header(props) {
   let url = '/signin';
   let text = 'Sign In';
 

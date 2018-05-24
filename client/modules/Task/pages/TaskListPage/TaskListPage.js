@@ -31,11 +31,7 @@ class TaskListPage extends Component {
   };
 
   handleAddTask = (content) => {
-    // console.log(`ADDING TASK with token: ${this.props.token}`);
-
     jwt.verify(this.props.token, 'T@5kM4nag3R', (err, decoded) => {
-      // console.log(`verifying: ${decoded.email}`);
-      // console.log(`verifying: ${JSON.stringify(decoded)}`);
       if (err) {
         // todo: handle error
       } else {
@@ -67,7 +63,7 @@ function mapStateToProps(state) {
     const decoded = jwt.verify(token.token, 'T@5kM4nag3R');
     tasks = getTasksByUsername(state, decoded.email);
   } else {
-    console.log('token on client = RIP');
+    console.log('token on client = RIP'); // eslint-disable-line
   }
 
   return {
