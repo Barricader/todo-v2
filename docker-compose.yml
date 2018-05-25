@@ -9,6 +9,7 @@ web:
   environment:
    NODE_ENV: production
    MONGO_URL: mongodb://db:27017/mern-starter
+   SECRET: T@5kM4nag3R
 db:
   image: mongo:latest
   ports:
