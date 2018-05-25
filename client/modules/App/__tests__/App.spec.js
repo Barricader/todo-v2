@@ -8,7 +8,6 @@ import { toggleAddPost } from '../AppActions';
 
 const dispatch = sinon.spy();
 const props = {
-  children,
   dispatch,
 };
 
@@ -22,7 +21,6 @@ test('renders properly', t => {
   t.is(wrapper.find('Footer').length, 1);
   t.is(wrapper.find('Header').prop('toggleAddPost'), wrapper.instance().toggleAddPostSection);
   t.truthy(wrapper.find('Header + div').hasClass(styles.container));
-  t.truthy(wrapper.find('Header + div').children(), children);
 });
 
 test('calls componentDidMount', t => {
