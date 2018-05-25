@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl } from 'react-intl';
 
 // Import Style
 import styles from './TaskCreateWidget.css';
@@ -29,4 +28,4 @@ TaskCreateWidget.propTypes = {
   addTask: PropTypes.func.isRequired,
 };
 
-export default injectIntl(TaskCreateWidget);
+export default TaskCreateWidget;

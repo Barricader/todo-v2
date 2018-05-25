@@ -3,10 +3,6 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
-import IntlWrapper from '../client/modules/Intl/IntlWrapper';
-// import passport from 'passport';
-// import flash from 'connect-flash';
-// import session from 'express-session';
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -68,17 +64,6 @@ app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api', tasks);
 app.use('/api', users);
 
-// passport
-// app.use(session({
-//   secret: serverConfig.secret,
-//   resave: true,
-//   cookie: { maxAge: 1000 * 60 * 60 * 24 },
-//   saveUninitialized: true,
-// }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(flash());
-
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
   const head = Helmet.rewind();
@@ -98,8 +83,6 @@ const renderFullPage = (html, initialState) => {
         ${head.script.toString()}
 
         ${isProdMode ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
-        <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
-        <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
       </head>
       <body>
         <div id="root">${html}</div>
@@ -157,9 +140,7 @@ app.use((req, res, next) => {
       .then(() => {
         const initialView = renderToString(
           <Provider store={store}>
-            <IntlWrapper>
-              <RouterContext {...renderProps} />
-            </IntlWrapper>
+            <RouterContext {...renderProps} />
           </Provider>
         );
         const finalState = store.getState();

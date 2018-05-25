@@ -1,9 +1,8 @@
 tests
 make username and email unique
-react redirect???
 find all // TODO and complete them
-gettasks(email / cuid)
 
 change font family for content
 remove error ui from sign in fields
 move sign buttons
+use config for secret in client

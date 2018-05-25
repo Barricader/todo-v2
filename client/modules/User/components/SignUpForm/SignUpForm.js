@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl } from 'react-intl';
 
 // Import Style
 import styles from './SignUpForm.css';
@@ -52,4 +51,4 @@ SignUpForm.propTypes = {
   signUp: PropTypes.func.isRequired,
 };
 
-export default injectIntl(SignUpForm);
+export default SignUpForm;

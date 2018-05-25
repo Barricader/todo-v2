@@ -1,8 +1,8 @@
 import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
+import { shallow, mount } from 'enzyme';
 import { TaskCreateWidget } from '../../components/TaskCreateWidget/TaskCreateWidget';
-import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
 
 const props = {
   addTask: () => {},
@@ -10,7 +10,7 @@ const props = {
 };
 
 test('renders properly', t => {
-  const wrapper = shallowWithIntl(
+  const wrapper = shallow(
     <TaskCreateWidget {...props} />
   );
 
@@ -22,7 +22,7 @@ test('renders properly', t => {
 });
 
 test('hide when showAddTask is false', t => {
-  const wrapper = mountWithIntl(
+  const wrapper = mount(
     <TaskCreateWidget {...props} />
   );
 
@@ -31,7 +31,7 @@ test('hide when showAddTask is false', t => {
 });
 
 test('has correct props', t => {
-  const wrapper = mountWithIntl(
+  const wrapper = mount(
     <TaskCreateWidget {...props} />
   );
 
@@ -41,7 +41,7 @@ test('has correct props', t => {
 
 test('calls addTask', t => {
   const addTask = sinon.spy();
-  const wrapper = mountWithIntl(
+  const wrapper = mount(
     <TaskCreateWidget addTask={addTask} showAddTask />
   );
 
@@ -55,7 +55,7 @@ test('calls addTask', t => {
 
 test('empty form doesn\'t call addTask', t => {
   const addTask = sinon.spy();
-  const wrapper = mountWithIntl(
+  const wrapper = mount(
     <TaskCreateWidget addTask={addTask} showAddTask />
   );
 

@@ -2,7 +2,7 @@ import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
 import TaskListItem from '../../components/TaskListItem/TaskListItem';
-import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
+import { mount, shallow } from 'enzyme';
 
 const task = { username: 'test user', checked: false, cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };
 const props = {
@@ -11,7 +11,7 @@ const props = {
 };
 
 test('renders properly', t => {
-  const wrapper = shallowWithIntl(
+  const wrapper = shallow(
     <TaskListItem {...props} />
   );
 
@@ -21,7 +21,7 @@ test('renders properly', t => {
 });
 
 test('has correct props', t => {
-  const wrapper = mountWithIntl(
+  const wrapper = mount(
     <TaskListItem {...props} />
   );
 
@@ -32,7 +32,7 @@ test('has correct props', t => {
 
 test('calls onDelete', t => {
   const onDelete = sinon.spy();
-  const wrapper = shallowWithIntl(
+  const wrapper = shallow(
     <TaskListItem task={task} onDelete={onDelete} />
   );
 

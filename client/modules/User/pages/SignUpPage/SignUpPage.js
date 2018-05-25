@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import Helmet from 'react-helmet';
 
 // Import Components
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
@@ -24,6 +25,7 @@ class SignUpPage extends Component {
   render() {
     return (
       <div>
+        <Helmet title="Sign Up" />
         <SignUpForm signUp={this.handleAddUser} />
       </div>
     );

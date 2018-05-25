@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import Helmet from 'react-helmet';
 import Cookies from 'universal-cookie';
 
 // Import Components
@@ -35,6 +36,7 @@ class SignInPage extends Component {
   render() {
     return (
       <div>
+        <Helmet title="Sign In" />
         <SignInForm signIn={this.handleSignIn} />
       </div>
     );
