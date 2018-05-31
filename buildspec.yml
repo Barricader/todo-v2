@@ -1,22 +1,23 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay&
-      - timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"
+  # install:
+  #   commands:
+  #     - echo Entered the install phase...
+  #     - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay&
+  #     - timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"
   pre_build:
     commands:
-      # - echo "Logging in to Docker Hub..."
+      - echo "Logging in to Docker Hub..."
       - docker login -u $DOCKER_USER -p $DOCKER_PASS
   build:
     commands:
-      # - echo "Build started on `date`"
-      # - echo "Building the Docker image..."
+      - echo "Build started on `date`"
+      - echo "Building the Docker image..."
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
-      # - echo "Build completed on `date`"
-      # - echo "Pushing the Docker image..."
+      - echo "Build completed on `date`"
+      - echo "Pushing the Docker image..."
       - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
