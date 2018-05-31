@@ -8,6 +8,8 @@ RUN npm install
 COPY . /usr/src/app
 
 ENV NODE_ENV production
+ENV MONGO_URL mongodb://svctodo:1234567@52.26.66.166:27017/todo-v2
+ENV SECRET T@5kM4nag3R
 
-EXPOSE 8000
+EXPOSE 80
 CMD ["npm", "run", "bs"]
