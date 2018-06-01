@@ -1,0 +1,6 @@
+[
+    {
+        "name": "prod",
+        "imageUri": "teamonelocal/production:latest"
+    }
+]
