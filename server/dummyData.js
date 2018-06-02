@@ -14,7 +14,7 @@ export default function () {
 
     Task.create([task1, task2], (error) => {
       if (!error) {
-        // Console.log('Dummy tasks created...');
+        Console.log('Dummy tasks created...'); // eslint-disable-line
       }
     });
   });
